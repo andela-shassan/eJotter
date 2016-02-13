@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/undo_b"
+        android:id="@+id/menu_restore_note"
+        android:title="Restore Note? " />
+
+    <item
+        android:icon="@drawable/ptrash"
+        android:id="@+id/menu_delete_note"
+        android:title="Delete Note?" />
+</menu>

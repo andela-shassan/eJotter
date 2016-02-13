@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<com.checkpoint.andela.helpers.PreferenceSetting
+    android:key="@string/prefernce_key"
+    android:title="@string/preference_title"
+    android:summary="@string/preferencesummary"
+    android:defaultValue="@string/preference_default_value"/>
+</PreferenceScreen>
