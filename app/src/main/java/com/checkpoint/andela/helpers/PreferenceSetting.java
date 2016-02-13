@@ -44,7 +44,7 @@ public class PreferenceSetting extends DialogPreference implements Preference.On
     @Override
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         if (restorePersistedValue) {
-            setSummary(retreiveSettings() + " Seconds");
+            setSummary(retreiveSettings());
         }
         else {
             persistString(defaultValue.toString());
