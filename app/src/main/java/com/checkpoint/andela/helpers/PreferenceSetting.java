@@ -7,7 +7,6 @@ import android.preference.DialogPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.NumberPicker;
 
@@ -31,12 +30,11 @@ public class PreferenceSetting extends DialogPreference implements Preference.On
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
         int sec = numberPicker.getValue();
-        Log.e("Default", String.valueOf(sec));
         if (positiveResult){
             String inputValue = String.valueOf(sec);
             if (callChangeListener(inputValue)){
                 persistString(inputValue);
-                setSummary(inputValue);
+                setSummary(inputValue + " Seconds");
             }
         }
     }
@@ -44,16 +42,16 @@ public class PreferenceSetting extends DialogPreference implements Preference.On
     @Override
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         if (restorePersistedValue) {
-            setSummary(retreiveSettings());
+            setSummary(retreiveSettings() + " Seconds");
         }
         else {
-            persistString(defaultValue.toString());
+            persistString(defaultValue.toString() + " Seconds");
         }
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        setSummary(newValue.toString());
+        setSummary(newValue.toString() + " Seconds");
         return true;
     }
 

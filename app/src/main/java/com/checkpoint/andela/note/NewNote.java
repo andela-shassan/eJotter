@@ -135,7 +135,7 @@ public class NewNote extends AppCompatActivity {
 
     private int getUserTime() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String time = preferences.getString("preference_key", "seconds");
+        String time = preferences.getString("preference_key", "5");
         return parseInt(time);
     }
 
