@@ -266,7 +266,7 @@ public class Application extends AppCompatActivity
     }
 
     protected void emptyTrash(String match) {
-        cupboard().withDatabase(db).delete(NoteModel.class, "trashed = ?", match);
+        cupboard().withDatabase(db).delete(NoteModel.class, "isTrashed = ?", match);
         Launcher.destinationLauncher(Application.this, TrashedNote.class);
     }
 
