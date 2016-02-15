@@ -61,7 +61,7 @@ public class TrashedNote extends Application {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Launcher.destinationLauncher(this, Application.class);
         }
     }
 
@@ -82,7 +82,6 @@ public class TrashedNote extends Application {
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();

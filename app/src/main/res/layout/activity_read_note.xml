@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/read_note"
     android:fitsSystemWindows="true"
     tools:context="com.checkpoint.andela.note.ReadNote">
 

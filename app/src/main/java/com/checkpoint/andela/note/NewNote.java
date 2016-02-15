@@ -16,7 +16,6 @@ import android.widget.EditText;
 
 import com.checkpoint.andela.db.NoteDB;
 import com.checkpoint.andela.helpers.Launcher;
-import com.checkpoint.andela.helpers.PreferenceSetting;
 import com.checkpoint.andela.helpers.Settings;
 import com.checkpoint.andela.model.NoteModel;
 
@@ -32,7 +31,6 @@ import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 public class NewNote extends AppCompatActivity {
     private SQLiteDatabase db;
     private NoteModel newNote;
-    private PreferenceSetting preferenceSetting;
 
     public NewNote() {}
 
@@ -57,6 +55,7 @@ public class NewNote extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setNote();
+                Launcher.destinationLauncher(NewNote.this, Application.class);
             }
         });
         updateNotes();
@@ -103,6 +102,7 @@ public class NewNote extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             Launcher.destinationLauncher(this, Settings.class);
+            return true;
         }
         if (id == R.id.action_save) {
             setNote();
@@ -158,6 +158,5 @@ public class NewNote extends AppCompatActivity {
                 runnable.run();
             }
         });
-
     }
 }

@@ -17,11 +17,11 @@ public class NoteModel implements Parcelable {
     private String title;
     private String content;
     private String dateTime;
-    private String trashed = null;
+    private String isTrashed = null;
 
     public NoteModel(){
         this.dateTime = setDateTime();
-        setTrashed("n");
+        setIsTrashed("n");
     }
 
     public String getTitle() {
@@ -41,7 +41,7 @@ public class NoteModel implements Parcelable {
     }
 
     public String setDateTime() {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return formatter.format(new Date());
     }
 
@@ -49,24 +49,12 @@ public class NoteModel implements Parcelable {
         return this.dateTime;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
-    }
-
     public long getId() {
         return _id;
     }
 
-    public void set_id(long _id) {
-        this._id = _id;
-    }
-
-    public String getTrashed() {
-        return trashed;
-    }
-
-    public void setTrashed(String trashed) {
-        this.trashed = trashed;
+    public void setIsTrashed(String isTrashed) {
+        this.isTrashed = isTrashed;
     }
 
     @Override
@@ -80,7 +68,7 @@ public class NoteModel implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.content);
         dest.writeString(this.dateTime);
-        dest.writeString(this.trashed);
+        dest.writeString(this.isTrashed);
     }
 
     protected NoteModel(Parcel in) {
@@ -88,7 +76,7 @@ public class NoteModel implements Parcelable {
         this.title = in.readString();
         this.content = in.readString();
         this.dateTime = in.readString();
-        this.trashed = in.readString();
+        this.isTrashed = in.readString();
     }
 
     public static final Creator<NoteModel> CREATOR = new Creator<NoteModel>() {
