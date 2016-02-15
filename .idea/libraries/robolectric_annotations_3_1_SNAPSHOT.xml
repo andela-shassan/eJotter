@@ -4,6 +4,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.robolectric/robolectric-annotations/3.1-SNAPSHOT/9c363022b30acae249b8f9f3f73ab7cd0d8854ff/robolectric-annotations-3.1-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.robolectric/robolectric-annotations/3.1-SNAPSHOT/1042a206fcb678dbc08bd96a68572fae9e7c641b/robolectric-annotations-3.1-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

@@ -112,6 +112,10 @@ public class Application extends AppCompatActivity
         QueryResultIterable<NoteModel> noteModels = null;
         db = dbHelper.getWritableDatabase();
         Cursor allNotes = cupboard().withDatabase(db).query(NoteModel.class).withSelection("isTrashed = ?", where).getCursor();
+            if(allNotes == null || allNotes.getCount() == 0){
+                View view = findViewById(R.id.empty_layout);
+                view.setVisibility(view.VISIBLE);
+            }
         try {
             noteModels = cupboard().withCursor(allNotes).iterate(NoteModel.class);
             for (NoteModel noteModel : noteModels) {
