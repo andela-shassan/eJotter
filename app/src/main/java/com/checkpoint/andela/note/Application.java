@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +21,7 @@ import android.widget.ListView;
 
 import com.checkpoint.andela.adapter.NoteModelAdapter;
 import com.checkpoint.andela.db.NoteDB;
+import com.checkpoint.andela.helpers.HelpFragment;
 import com.checkpoint.andela.helpers.Launcher;
 import com.checkpoint.andela.helpers.Settings;
 import com.checkpoint.andela.model.NoteModel;
@@ -109,7 +111,7 @@ public class Application extends AppCompatActivity
         NoteDB dbHelper = new NoteDB(this);
         QueryResultIterable<NoteModel> noteModels = null;
         db = dbHelper.getWritableDatabase();
-        Cursor allNotes = cupboard().withDatabase(db).query(NoteModel.class).withSelection("trashed = ?", where).getCursor();
+        Cursor allNotes = cupboard().withDatabase(db).query(NoteModel.class).withSelection("isTrashed = ?", where).getCursor();
         try {
             noteModels = cupboard().withCursor(allNotes).iterate(NoteModel.class);
             for (NoteModel noteModel : noteModels) {
@@ -194,23 +196,41 @@ public class Application extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            Launcher.destinationLauncher(this, Settings.class);
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                Launcher.destinationLauncher(this, Settings.class);
+                return true;
+            case R.id.action_help:
+                showHelpFragment();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_trash) {
-            Launcher.destinationLauncher(this, TrashedNote.class);
-        } else if (id == R.id.nav_setting) {
-            Launcher.destinationLauncher(this, Settings.class);
+        switch (id) {
+            case R.id.nav_trash:
+                Launcher.destinationLauncher(this, TrashedNote.class);
+                return true;
+            case R.id.nav_setting:
+                Launcher.destinationLauncher(this, Settings.class);
+                return true;
+            case R.id.help_drawer:
+                showHelpFragment();
+                return true;
+            default:
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
         }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    }
+
+    protected void showHelpFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        HelpFragment help = new HelpFragment();
+        help.show(fm, "fragment_help");
     }
 
     @Override
@@ -229,7 +249,7 @@ public class Application extends AppCompatActivity
         NoteModel nm = mNotes.get(currentNotePosition);
         mNotes.remove(currentNotePosition);
         NoteModel note = cupboard().withDatabase(db).get(NoteModel.class, nm.getId());
-        note.setTrashed(trash);
+        note.setIsTrashed(trash);
         cupboard().withDatabase(db).put(note);
         mAdapter.notifyDataSetChanged();
     }

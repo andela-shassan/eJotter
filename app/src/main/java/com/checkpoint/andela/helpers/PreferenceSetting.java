@@ -34,7 +34,7 @@ public class PreferenceSetting extends DialogPreference implements Preference.On
             String inputValue = String.valueOf(sec);
             if (callChangeListener(inputValue)){
                 persistString(inputValue);
-                setSummary(inputValue + " Seconds");
+                setSummary(inputValue);
             }
         }
     }
@@ -42,16 +42,16 @@ public class PreferenceSetting extends DialogPreference implements Preference.On
     @Override
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         if (restorePersistedValue) {
-            setSummary(retreiveSettings() + " Seconds");
+            setSummary(retreiveSettings());
         }
         else {
-            persistString(defaultValue.toString() + " Seconds");
+            persistString(defaultValue.toString());
         }
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        setSummary(newValue.toString() + " Seconds");
+        setSummary(newValue.toString());
         return true;
     }
 

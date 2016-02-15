@@ -10,7 +10,10 @@ import org.junit.Test;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.longClick;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
@@ -35,6 +38,20 @@ public class NoteTest extends ActivityInstrumentationTestCase2 {
     }
 
     @Test
+    public void testClickNewNoteButton() {
+        Espresso.onView(ViewMatchers.withId(R.id.fab)).perform(click());
+    }
+
+    @Test
+    public void testAddNote() {
+        Espresso.onView(ViewMatchers.withId(R.id.fab)).perform(click());
+        onView(withId(R.id.noteTitleText)).perform(typeText("ANDELA2"));
+        onView(withId(R.id.noteBody)).perform(typeText("is awesome"));
+        onView(withId(R.id.saveButton)).perform(click());
+        onView(withText("ANDELA2")).check(matches(isDisplayed()));
+    }
+
+    @Test
     public void testLongClick() {
         Espresso.onView(withText("Two")).perform(longClick());
     }
@@ -45,106 +62,4 @@ public class NoteTest extends ActivityInstrumentationTestCase2 {
         onView(withId(R.id.theContent)).check(ViewAssertions.matches(withText("is awesome")));
     }
 
-    @Test
-    public void testClickNewNoteButton() {
-        Espresso.onView(ViewMatchers.withId(R.id.fab)).perform(click());
-    }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*public void testOpenNewNoteOnCLick() {
-
-        ShadowActivity homedashboardShadowable = Shadows.shadowOf(homeDashboardActivity);
-        Intent actualStartedIntent = homedashboardShadowable.getNextStartedActivity();
-        assertTrue(actualStartedIntent.filterEquals(expectedIntent));
-    }*/
