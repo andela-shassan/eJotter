@@ -4,6 +4,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.robolectric/shadows-core/3.1-SNAPSHOT/bd950e6b155359da04216c0a3c41942549de494d/shadows-core-3.1-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.robolectric/shadows-core/3.1-SNAPSHOT/e9bbbdced61850b44f8cc56850657205e19a08ac/shadows-core-3.1-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

@@ -33,6 +33,21 @@
         android:layout_marginTop="?attr/actionBarSize">
     </ListView>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You don't have notes to display yet"
+            android:id="@+id/empty_layout"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

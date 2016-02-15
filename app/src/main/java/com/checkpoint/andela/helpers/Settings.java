@@ -46,13 +46,15 @@ public class Settings extends PreferenceActivity {
 
     private void addActionBar() {
         ActionBar actionBar =  getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     private ActionBar getSupportActionBar() {
-        return getDelegate().getSupportActionBar();
+        ActionBar actionBar = getDelegate().getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        return actionBar;
     }
 
     @Override
@@ -131,5 +133,14 @@ public class Settings extends PreferenceActivity {
     protected void onDestroy() {
         super.onDestroy();
         getDelegate().onDestroy();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.home){
+            super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

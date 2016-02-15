@@ -31,6 +31,7 @@ import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 public class NewNote extends AppCompatActivity {
     private SQLiteDatabase db;
     private NoteModel newNote;
+    private Toolbar toolbar;
 
     public NewNote() {}
 
@@ -43,8 +44,12 @@ public class NewNote extends AppCompatActivity {
     }
 
     private void initialize() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.new_note_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.new_note_toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         NoteDB dbHelper = new NoteDB(this);
         db = dbHelper.getWritableDatabase();
@@ -108,6 +113,9 @@ public class NewNote extends AppCompatActivity {
             setNote();
             Launcher.destinationLauncher(this, Application.class);
         }
+        if(id == R.id.home)
+            onBackPressed();
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -119,6 +127,7 @@ public class NewNote extends AppCompatActivity {
         final Intent intent = getIntent();
         if (intent.getExtras() != null) {
             newNote = intent.getParcelableExtra("UPDATE");
+            this.setTitle("Update Note");
             EditText uTitle = (EditText) findViewById(R.id.noteTitleText);
             EditText uContent = (EditText) findViewById(R.id.noteBody);
             uTitle.setText(newNote.getTitle());
@@ -128,7 +137,7 @@ public class NewNote extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        setNote();
+        //setNote();
         handler.removeCallbacks(runnable);
         Launcher.destinationLauncher(this, Application.class);
     }

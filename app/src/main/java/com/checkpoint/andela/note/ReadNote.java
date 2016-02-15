@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -36,6 +37,10 @@ public class ReadNote extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.read_note_toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +68,15 @@ public class ReadNote extends AppCompatActivity {
         this.id = note._id;
         this.head = note.getDate();
         this.body = note.getContent();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.home){
+            super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
