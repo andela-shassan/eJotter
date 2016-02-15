@@ -46,6 +46,11 @@
             android:id="@+id/noteBody"
             android:layout_marginTop="10dp"
             android:hint="Note content"
+            android:enabled="true"
+            android:minLines="2"
+            android:maxLines="8"
+            android:isScrollContainer="true"
+            android:focusable="true"
             android:background="@null"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"/>

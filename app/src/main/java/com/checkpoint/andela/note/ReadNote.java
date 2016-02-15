@@ -74,9 +74,14 @@ public class ReadNote extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.home){
-            super.onBackPressed();
+            onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Launcher.destinationLauncher(this, Application.class);
     }
 
 }

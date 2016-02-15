@@ -158,13 +158,15 @@ public class NewNote extends AppCompatActivity {
     };
 
     public void autoSave() {
-        EditText oTitle = (EditText) findViewById(R.id.noteTitleText);
-
-        oTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        final EditText nTitle = (EditText) findViewById(R.id.noteTitleText);
+        final EditText nContent = (EditText) findViewById(R.id.noteBody);
+        nTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                runnable.run();
+                if(nTitle.hasFocus() || nContent.hasFocus())
+                    runnable.run();
             }
         });
     }
+
 }
