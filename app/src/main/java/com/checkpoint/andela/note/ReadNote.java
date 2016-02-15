@@ -51,8 +51,10 @@ public class ReadNote extends AppCompatActivity {
      */
     private void getNote() {
         Intent intent = getIntent();
-        note = intent.getParcelableExtra("UPDATE");
-        setNoteView();
+        if(intent.getParcelableExtra("UPDATE") != null){
+            note = intent.getParcelableExtra("UPDATE");
+            setNoteView();
+        }
     }
 
     private void setNoteView() {

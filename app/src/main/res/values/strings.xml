@@ -73,4 +73,15 @@
     <string name="preference_title">Set Autosave Time in Seconds</string>
     <string name="preferencesummary">5</string>
     <string name="preference_default_value">5</string>
+
+    <!-- Help text -->
+    <string name="help_text">Hello blank fragment</string>
+    <string name="help1">Click on the float action button (+) to go to the editor and there you are ready to open up the editor. Type the note title and note content in the space provided and the note is saved at the specified `auto save` time defined in the application setting. Also, you can explicitly click on any of the save buttons provided in the app to save your note. \n</string>
+    <string name="help2">To read/preview a note, simply click on it to open the preview page. Wish to make changes or corrections EDIT to a note, simply tap on the edit floating action button while on the preview page.</string>
+    <string name="help3">To move a note to trash, longClick on the note to reveal the contextual menu and choose delete</string>
+    <string name="help4">The TRASHED NOTES can be found in the trash bin located in the navigation drawer.</string>
+    <string name="help5">Wish to RESTORE a note from the trash bin? Click the note and select the appropriate option from the popup menu.</string>
+    <string name="help6">To DELETE a note permanently, simply choose delete when prompted from the trash bin, or click on the `TRASH` icon located on the toolbar to `EMPTY` the trash at once.</string>
+    <string name="help7"><![CDATA[The application setting can be found in the navigation drawer bar. Simply click on the MENU icon on the toolbar or swipe  to the right to reveal the drawer.]]></string>
+
 </resources>
