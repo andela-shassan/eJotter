@@ -137,7 +137,6 @@ public class NewNote extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //setNote();
         handler.removeCallbacks(runnable);
         Launcher.destinationLauncher(this, Application.class);
     }
