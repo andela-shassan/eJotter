@@ -1,20 +1,20 @@
 package com.checkpoint.andela.helpers;
 
-import android.support.annotation.LayoutRes;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.support.v7.widget.Toolbar;
 
 import com.checkpoint.andela.note.R;
 
@@ -40,21 +40,12 @@ public class Settings extends PreferenceActivity {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        addActionBar();
+        getAnActionBar();
         addPreferencesFromResource(R.xml.preferences);
     }
 
-    private void addActionBar() {
-        ActionBar actionBar =  getSupportActionBar();
-    }
-
-    private ActionBar getSupportActionBar() {
-        ActionBar actionBar = getDelegate().getSupportActionBar();
-        if (actionBar != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        return actionBar;
+    private ActionBar getAnActionBar() {
+        return getDelegate().getSupportActionBar();
     }
 
     @Override
@@ -75,6 +66,7 @@ public class Settings extends PreferenceActivity {
         Toolbar toolbar = (Toolbar) LayoutInflater.from(this)
                 .inflate(R.layout.settings_toolbar, parent, false);
 
+        toolbar.setNavigationIcon(R.drawable.back_setting);
         parent.addView(toolbar, 0);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,12 +127,4 @@ public class Settings extends PreferenceActivity {
         getDelegate().onDestroy();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.home){
-            super.onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
