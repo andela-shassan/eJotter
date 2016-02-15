@@ -12,6 +12,8 @@ import android.widget.NumberPicker;
 
 import com.checkpoint.andela.note.R;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * Created by andela on 12/02/2016.
  */
@@ -71,6 +73,7 @@ public class PreferenceSetting extends DialogPreference implements Preference.On
         numberPicker = (NumberPicker) view.findViewById(R.id.number_picker);
         numberPicker.setMaxValue(60);
         numberPicker.setMinValue(5);
+        numberPicker.setValue(parseInt(retreiveSettings()));
         return view;
     }
 

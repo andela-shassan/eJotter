@@ -24,12 +24,16 @@
             android:theme="@style/AppTheme.NoActionBar">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".Application" />
+            android:value="com.checkpoint.andela.note.Application" />
         </activity>
         <activity
             android:name=".ReadNote"
             android:label="@string/title_activity_read_note"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.checkpoint.andela.note.Application" />
+        </activity>
         <activity
             android:name=".TrashedNote"
             android:label="@string/title_activity_trashed_note"
