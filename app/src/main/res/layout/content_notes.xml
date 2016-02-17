@@ -43,7 +43,8 @@
             android:text="You don't have notes to display yet"
             android:id="@+id/empty_layout"
             android:visibility="gone"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
     </FrameLayout>
 
 

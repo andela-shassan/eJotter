@@ -45,20 +45,20 @@ public class NoteTest extends ActivityInstrumentationTestCase2 {
     @Test
     public void testAddNote() {
         Espresso.onView(ViewMatchers.withId(R.id.fab)).perform(click());
-        onView(withId(R.id.noteTitleText)).perform(typeText("ANDELA2"));
+        onView(withId(R.id.noteTitleText)).perform(typeText("ANDELA3"));
         onView(withId(R.id.noteBody)).perform(typeText("is awesome"));
         onView(withId(R.id.saveButton)).perform(click());
-        onView(withText("ANDELA2")).check(matches(isDisplayed()));
+        onView(withText("ANDELA3")).check(matches(isDisplayed()));
     }
 
     @Test
     public void testLongClick() {
-        Espresso.onView(withText("Two")).perform(longClick());
+        Espresso.onView(withText("Four")).perform(longClick());
     }
 
     @Test
     public void testClickOnNoteItem() {
-        Espresso.onView(withText("ANDELA")).perform(click());
+        Espresso.onView(withText("ANDELA3")).perform(click());
         onView(withId(R.id.theContent)).check(ViewAssertions.matches(withText("is awesome")));
     }
 

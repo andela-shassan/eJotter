@@ -6,7 +6,6 @@
             android:id="@+id/nav_notes"
             android:icon="@drawable/purchase_order"
             android:title="Notes"/>
-            //android:checked="true"/>
         <item
             android:id="@+id/nav_trash"
             android:icon="@drawable/trash_blue"
@@ -14,11 +13,13 @@
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/settings_blue"
-            android:title="Settings" />
+            android:title="Settings"
+            android:visible="true"/>
         <item
             android:id="@+id/help_drawer"
             android:icon="@drawable/help"
-            android:title="Help"/>
+            android:title="Help"
+            android:visible="true"/>
     </group>
 
 </menu>
