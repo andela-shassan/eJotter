@@ -7,19 +7,27 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.checkpoint.andela.note.R;
 
 public class HelpFragment extends DialogFragment {
 
-    public HelpFragment() {
-    }
+    public HelpFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_help, container);
+        View v = inflater.inflate(R.layout.fragment_help, container);
+        Button b = (Button) v.findViewById(R.id.dismiss_help);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        return v;
     }
 
     @Override
@@ -41,5 +49,4 @@ public class HelpFragment extends DialogFragment {
         helpText7.setText(R.string.help7);
         getDialog().setTitle("Help?");
     }
-
 }

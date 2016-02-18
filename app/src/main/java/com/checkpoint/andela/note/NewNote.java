@@ -105,18 +105,20 @@ public class NewNote extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Launcher.destinationLauncher(this, Settings.class);
-            return true;
+        switch (id){
+            case R.id.action_settings:
+                Launcher.destinationLauncher(this, Settings.class);
+                return true;
+            case R.id.action_save:
+                setNote();
+                Launcher.destinationLauncher(this, Application.class);
+                return true;
+            case R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        if (id == R.id.action_save) {
-            setNote();
-            Launcher.destinationLauncher(this, Application.class);
-        }
-        if(id == R.id.home)
-            onBackPressed();
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -148,23 +150,45 @@ public class NewNote extends AppCompatActivity {
     }
 
     Handler handler = new Handler();
-
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            handler.postDelayed(this, 1000 * getUserTime());
             setNote();
+            handler.postDelayed(this, 1000 * getUserTime());
         }
     };
 
     public void autoSave() {
-        EditText oTitle = (EditText) findViewById(R.id.noteTitleText);
-
-        oTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        final EditText nTitle = (EditText) findViewById(R.id.noteTitleText);
+        final EditText nContent = (EditText) findViewById(R.id.noteBody);
+        nTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                runnable.run();
+                if(nTitle.hasFocus() || nContent.hasFocus()){
+                    runnable.run();
+                }
+                else {
+                    handler.removeCallbacks(runnable);
+                }
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        handler.removeCallbacks(runnable);
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        handler.removeCallbacks(runnable);
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacks(runnable);
+        super.onDestroy();
     }
 }

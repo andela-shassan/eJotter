@@ -17,7 +17,7 @@ eJotter is an android application that enables you to create note anytime and an
 - Type the note title and note content in the space provided and the note is saved at the specified `auto save` time defined in the application setting.
 - Also, you can explicitly click on any of the save buttons provided in the app to save your note.
 - To read/preview a note, simply click on it to open the preview page.
-- To `SHARE` your awesome note with friends and family, `longclick` on the note to reveal the contextual action menu where you can select the share button to send the note.
+- To `SHARE` your awesome note with friends and family, `longClick` on the note to reveal the contextual action menu where you can select the share button to send the note.
 - Wish to make changes or corrections `EDIT` to a note, simply tap on the edit floating action button while on the preview page.
 - The application setting can be found in the navigation drawer bar. Simply click on the `MENU` icon on the toolbar or swipe  to the right to reveal the drawer. 
 - The `TRASHED NOTES` can be found in the trash bin located in the navigation drawer.
@@ -25,7 +25,7 @@ eJotter is an android application that enables you to create note anytime and an
 - To `DELETE` a note permanently, simply choose delete when prompted from the trash bin, or click on the `TRASH` icon located on the toolbar to `EMPTY` the trash at once.
 
 ## Dependencies  
-This project work uses `CUPBOARD` to interact with `sqlite` database.
+This project work uses `CUPBOARD` to interact with `SQLite` database.
 
 ## Tests 
 Several tests were written to test the functionality of this application and they are located in the test directory.  

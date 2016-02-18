@@ -70,7 +70,7 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_trashed_note">Trashed Note</string>
     <string name="prefernce_key">preference_key</string>
-    <string name="preference_title">Set Autosave Time in Seconds</string>
+    <string name="preference_title">Autosave Time</string>
     <string name="preferencesummary">5</string>
     <string name="preference_default_value">5</string>
 
