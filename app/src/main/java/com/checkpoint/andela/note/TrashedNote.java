@@ -13,17 +13,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.checkpoint.andela.adapter.NoteModelAdapter;
 import com.checkpoint.andela.helpers.Launcher;
 import com.checkpoint.andela.helpers.Settings;
 import com.checkpoint.andela.model.NoteModel;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class TrashedNote extends Application {
@@ -120,6 +123,7 @@ public class TrashedNote extends Application {
                 switch (item.getItemId()) {
                     case R.id.menu_restore_note:
                         trashNote(trashed, adapter, "n", position);
+                        Toast.makeText(TrashedNote.this, "Note restored successfully", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.menu_delete_note:
                         deleteNote(trashed, adapter, position);
@@ -129,7 +133,27 @@ public class TrashedNote extends Application {
                 }
             }
         });
+        if (showIcons(popup)) {
+            return;
+        }
         popup.show();
+    }
+
+    private boolean showIcons(PopupMenu popup) {
+        Object menuHelper;
+        Class[] argTypes;
+        try {
+            Field fMenuHelper = PopupMenu.class.getDeclaredField("mPopup");
+            fMenuHelper.setAccessible(true);
+            menuHelper = fMenuHelper.get(popup);
+            argTypes = new Class[] { boolean.class };
+            menuHelper.getClass().getDeclaredMethod("setForceShowIcon", argTypes).invoke(menuHelper, true);
+        } catch (Exception e) {
+            Log.w("POPUP", "error forcing menu icons to show", e);
+            popup.show();
+            return true;
+        }
+        return false;
     }
 
     // Reaffirmation of Trash emptying.
