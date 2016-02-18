@@ -272,6 +272,7 @@ public class Application extends AppCompatActivity
         cupboard().withDatabase(db).delete(NoteModel.class, nm.getId());
         mNotes.remove(index);
         mAdapter.notifyDataSetChanged();
+        refresh();
     }
 
     protected void emptyTrash(String match) {
