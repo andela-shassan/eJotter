@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.checkpoint.andela.adapter.NoteModelAdapter;
 import com.checkpoint.andela.db.NoteDB;
@@ -157,6 +158,7 @@ public class Application extends AppCompatActivity
                     return true;
                 case R.id.deleteNotePopup:
                     trashNote(notes, adapter, "y", currentNoteIndex);
+                    Toast.makeText(Application.this, "Note moved to trash", Toast.LENGTH_SHORT ).show();
                     adapter.notifyDataSetChanged();
                     mode.finish();
                     return true;
@@ -262,6 +264,7 @@ public class Application extends AppCompatActivity
         note.setIsTrashed(trash);
         cupboard().withDatabase(db).put(note);
         mAdapter.notifyDataSetChanged();
+        refresh();
     }
 
     protected void deleteNote(ArrayList<NoteModel> mNotes, NoteModelAdapter mAdapter, int index) {
@@ -269,17 +272,25 @@ public class Application extends AppCompatActivity
         cupboard().withDatabase(db).delete(NoteModel.class, nm.getId());
         mNotes.remove(index);
         mAdapter.notifyDataSetChanged();
+        refresh();
     }
 
     protected void emptyTrash(String match) {
         cupboard().withDatabase(db).delete(NoteModel.class, "isTrashed = ?", match);
-        Launcher.destinationLauncher(Application.this, TrashedNote.class);
+        refresh();
     }
 
     public void exitApp() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void refresh() {
+        Intent intent = getIntent();
+        finish();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 }
