@@ -1,8 +1,13 @@
 package com.checkpoint.andela.note;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +21,7 @@ import android.widget.ListView;
 
 import com.checkpoint.andela.adapter.NoteModelAdapter;
 import com.checkpoint.andela.helpers.Launcher;
+import com.checkpoint.andela.helpers.Settings;
 import com.checkpoint.andela.model.NoteModel;
 
 import java.util.ArrayList;
@@ -31,16 +37,11 @@ public class TrashedNote extends Application {
         setContentView(R.layout.activity_notes);
 
         initialize();
-        populateNote(trashed, "y");
     }
 
     private void initialize() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
@@ -58,6 +59,8 @@ public class TrashedNote extends Application {
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
+
+        populateNote(trashed, "y");
     }
 
     @Override
@@ -79,7 +82,9 @@ public class TrashedNote extends Application {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.empty_trashed) {
-            emptyTrash("y");
+            TrashDialogue td = new TrashDialogue();
+            FragmentManager fm = getSupportFragmentManager();
+            td.show(fm, "Empty Trash");
             adapter.notifyDataSetChanged();
             return true;
         }
@@ -89,20 +94,26 @@ public class TrashedNote extends Application {
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.nav_notes) {
-            Launcher.destinationLauncher(this, Application.class);
-        }else if (id == R.id.nav_setting) {
-            drawer.closeDrawer(GravityCompat.START);
+        switch (id) {
+            case R.id.nav_notes:
+                Launcher.destinationLauncher(this, Application.class);
+                return true;
+            case R.id.nav_setting:
+                Launcher.destinationLauncher(this, Settings.class);
+                return true;
+            case R.id.help_drawer:
+                showHelpFragment();
+                return true;
+            default:
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
         }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
         PopupMenu popup = new PopupMenu(this, view);
-        popup.getMenuInflater().inflate(R.menu.trashed_popup, popup.getMenu());
+        popup.inflate(R.menu.trashed_popup);
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
@@ -120,4 +131,26 @@ public class TrashedNote extends Application {
         });
         popup.show();
     }
+
+    // Reaffirmation of Trash emptying.
+    public class TrashDialogue extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Do you want to empty the trash? This cannot be undo!")
+                    .setPositiveButton("Empty it", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            emptyTrash("y");
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dismiss();
+                        }
+                    });
+            return builder.create();
+        }
+    }
+
 }

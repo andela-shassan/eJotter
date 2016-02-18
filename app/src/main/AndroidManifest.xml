@@ -21,6 +21,7 @@
         <activity
             android:name=".NewNote"
             android:label="@string/title_activity_new_note"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
@@ -42,7 +43,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Application" />
         </activity>
-        <activity android:name="com.checkpoint.andela.helpers.Settings"
+        <activity
+            android:name="com.checkpoint.andela.helpers.Settings"
             android:label="Settings"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

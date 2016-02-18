@@ -26,6 +26,6 @@ public class NewNoteTest extends ActivityInstrumentationTestCase2{
         onView(withId(R.id.noteTitleText)).perform(typeText("Four"));
         onView(withId(R.id.noteBody)).perform(typeText("is awesome"));
         onView(withId(R.id.saveButton)).perform(click());
-        onView(withText("Four")).perform(click()) /*check(matches(isDisplayed()))*/;
+        onView(withText("Four")).perform(click()); /*check(matches(isDisplayed()))*/
     }
 }
