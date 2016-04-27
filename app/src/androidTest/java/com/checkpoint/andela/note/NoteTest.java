@@ -33,8 +33,8 @@ public class NoteTest extends ActivityInstrumentationTestCase2 {
 
     @Test
     public void testDisplayItem() {
-        Espresso.onView(withText("Google")).check(doesNotExist());
-        Espresso.onView(withText("Semiu")).check((doesNotExist()));
+        onView(withText("Google")).check(doesNotExist());
+        onView(withText("Semiu")).check((doesNotExist()));
     }
 
     @Test
@@ -54,6 +54,7 @@ public class NoteTest extends ActivityInstrumentationTestCase2 {
     @Test
     public void testLongClick() {
         Espresso.onView(withText("Four")).perform(longClick());
+        onView(withId(R.id.deleteNotePopup)).perform(click());
     }
 
     @Test

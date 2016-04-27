@@ -1,5 +1,7 @@
 package com.checkpoint.andela.note;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -34,13 +37,14 @@ import nl.qbusict.cupboard.QueryResultIterable;
 import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 public class Application extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
     private DrawerLayout drawer;
     private ArrayList<NoteModel> notes;
     private NoteModelAdapter adapter;
     private SQLiteDatabase db;
     private int currentNoteIndex;
     private ActionMode currentActionMode;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +69,7 @@ public class Application extends AppCompatActivity
 
         notes = new ArrayList<>();
         adapter = new NoteModelAdapter(this, notes);
-        ListView listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         onLongClick(listView);
@@ -201,6 +205,14 @@ public class Application extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.notes, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchMenuItem.getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
+
         return true;
     }
 
@@ -226,17 +238,18 @@ public class Application extends AppCompatActivity
         switch (id) {
             case R.id.nav_trash:
                 Launcher.destinationLauncher(this, TrashedNote.class);
-                return true;
+                break;
             case R.id.nav_setting:
                 Launcher.destinationLauncher(this, Settings.class);
-                return true;
+                break;
             case R.id.help_drawer:
                 showHelpFragment();
-                return true;
+                break;
             default:
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
+                break;
         }
+        drawer.closeDrawer(GravityCompat.START);
+        return false;
     }
 
     protected void showHelpFragment() {
@@ -292,5 +305,36 @@ public class Application extends AppCompatActivity
         finish();
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        ArrayList<NoteModel> result = filterNotes(notes, newText);
+        adapter = new NoteModelAdapter(this, result);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        return false;
+    }
+
+    private ArrayList<NoteModel> filterNotes(ArrayList<NoteModel> mainList, String query){
+        query = query.toLowerCase();
+        int size = mainList.size();
+        NoteModel note;
+        ArrayList<NoteModel> filteredList = new ArrayList<>();
+        for (int i = 0; i < size; i++){
+            note = mainList.get(i);
+            String title = note.getTitle().toLowerCase();
+            String content = note.getContent().toLowerCase();
+
+            if (title.contains(query)|| content.contains(query)){
+                filteredList.add(note);
+            }
+        }
+        return filteredList;
     }
 }

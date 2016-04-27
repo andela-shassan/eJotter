@@ -41,7 +41,7 @@ public class NoteModel implements Parcelable {
     }
 
     public String setDateTime() {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss");
         return formatter.format(new Date());
     }
 
