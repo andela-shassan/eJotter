@@ -3,6 +3,7 @@ package com.checkpoint.andela.note;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -157,12 +158,14 @@ public class TrashedNote extends Application {
     }
 
     // Reaffirmation of Trash emptying.
-    public class TrashDialogue extends DialogFragment {
+    public static class TrashDialogue extends DialogFragment {
+        private SQLiteDatabase db;
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Do you want to empty the trash? This cannot be undo!")
+            builder.setMessage("Empty the trash? This cannot be undo!")
                     .setPositiveButton("Empty it", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             emptyTrash("y");
@@ -174,6 +177,12 @@ public class TrashedNote extends Application {
                         }
                     });
             return builder.create();
+        }
+
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+            getActivity().recreate();
+            super.onDismiss(dialog);
         }
     }
 

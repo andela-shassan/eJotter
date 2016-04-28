@@ -41,7 +41,7 @@ public class Application extends AppCompatActivity
     private DrawerLayout drawer;
     private ArrayList<NoteModel> notes;
     private NoteModelAdapter adapter;
-    private SQLiteDatabase db;
+    private static SQLiteDatabase db;
     private int currentNoteIndex;
     private ActionMode currentActionMode;
     private ListView listView;
@@ -277,7 +277,7 @@ public class Application extends AppCompatActivity
         note.setIsTrashed(trash);
         cupboard().withDatabase(db).put(note);
         mAdapter.notifyDataSetChanged();
-        refresh();
+        setEmptyText(mNotes);
     }
 
     protected void deleteNote(ArrayList<NoteModel> mNotes, NoteModelAdapter mAdapter, int index) {
@@ -285,25 +285,17 @@ public class Application extends AppCompatActivity
         cupboard().withDatabase(db).delete(NoteModel.class, nm.getId());
         mNotes.remove(index);
         mAdapter.notifyDataSetChanged();
-        refresh();
+        setEmptyText(mNotes);
     }
 
-    protected void emptyTrash(String match) {
+    protected static void emptyTrash(String match) {
         cupboard().withDatabase(db).delete(NoteModel.class, "isTrashed = ?", match);
-        refresh();
     }
 
     public void exitApp() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    public void refresh() {
-        Intent intent = getIntent();
-        finish();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 
