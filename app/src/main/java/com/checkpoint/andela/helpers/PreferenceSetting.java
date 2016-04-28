@@ -53,7 +53,7 @@ public class PreferenceSetting extends DialogPreference implements Preference.On
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        setSummary(newValue.toString());
+        setSummary(newValue.toString()+ " Seconds");
         return true;
     }
 

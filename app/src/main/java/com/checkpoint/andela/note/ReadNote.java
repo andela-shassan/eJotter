@@ -15,7 +15,6 @@ import com.checkpoint.andela.model.NoteModel;
 
 public class ReadNote extends AppCompatActivity {
     private NoteModel note;
-    private TextView title;
     private TextView content;
     private long id;
     private String head;
@@ -31,7 +30,6 @@ public class ReadNote extends AppCompatActivity {
     }
 
     private void initialize() {
-        title = (TextView) findViewById(R.id.theTitle);
         content = (TextView) findViewById(R.id.theContent);
         content.setMovementMethod(new ScrollingMovementMethod());
 
@@ -59,11 +57,11 @@ public class ReadNote extends AppCompatActivity {
         if(intent.getParcelableExtra("UPDATE") != null){
             note = intent.getParcelableExtra("UPDATE");
             setNoteView();
+            setTitle(note.getTitle());
         }
     }
 
     private void setNoteView() {
-        title.setText(note.getTitle());
         content.setText(note.getContent());
         this.id = note._id;
         this.head = note.getDate();

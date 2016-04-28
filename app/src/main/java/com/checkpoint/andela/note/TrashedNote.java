@@ -101,17 +101,20 @@ public class TrashedNote extends Application {
         switch (id) {
             case R.id.nav_notes:
                 Launcher.destinationLauncher(this, Application.class);
-                return true;
+                break;
             case R.id.nav_setting:
                 Launcher.destinationLauncher(this, Settings.class);
-                return true;
+                break;
             case R.id.help_drawer:
                 showHelpFragment();
-                return true;
+                break;
             default:
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
+                break;
         }
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        return true;
     }
 
     @Override

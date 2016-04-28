@@ -28,18 +28,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:hint="Title"
-        android:id="@+id/theTitle"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:textStyle="bold"
-        android:layout_below="@+id/view" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -47,8 +35,8 @@
         android:id="@+id/theContent"
         android:scrollbars="vertical"
         android:hint="Content"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:layout_below="@+id/theTitle"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@id/view"
         android:layout_centerHorizontal="true" />
 
     <android.support.design.widget.FloatingActionButton

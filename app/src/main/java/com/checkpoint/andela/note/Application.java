@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -116,15 +118,19 @@ public class Application extends AppCompatActivity
         NoteDB dbHelper = new NoteDB(this);
         QueryResultIterable<NoteModel> noteModels = null;
         db = dbHelper.getWritableDatabase();
-        Cursor allNotes = cupboard().withDatabase(db).query(NoteModel.class).withSelection("isTrashed = ?", where).getCursor();
 
         try {
+            Cursor allNotes = cupboard().withDatabase(db).query(NoteModel.class).withSelection("isTrashed = ?", where).getCursor();
             noteModels = cupboard().withCursor(allNotes).iterate(NoteModel.class);
             for (NoteModel noteModel : noteModels) {
                 notes.add(0, noteModel);
             }
             setEmptyText(notes);
-        } finally {
+        }catch (SQLiteException sqle){
+            Log.e("ERROR ", sqle.getMessage());
+        }
+
+        finally {
             noteModels.close();
         }
     }
@@ -248,8 +254,10 @@ public class Application extends AppCompatActivity
             default:
                 break;
         }
-        drawer.closeDrawer(GravityCompat.START);
-        return false;
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        return true;
     }
 
     protected void showHelpFragment() {
