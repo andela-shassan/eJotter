@@ -17,9 +17,9 @@ import static java.lang.Integer.parseInt;
 /**
  * Created by andela on 12/02/2016.
  */
-public class PreferenceSetting extends DialogPreference implements Preference.OnPreferenceChangeListener, NumberPicker.OnValueChangeListener {
-    public static final String DEFAULT_VALUE = "5";
-
+public class PreferenceSetting extends DialogPreference implements
+        Preference.OnPreferenceChangeListener, NumberPicker.OnValueChangeListener {
+    public final String DEFAULT_VALUE = "5";
     private NumberPicker numberPicker;
 
     public PreferenceSetting(Context context, AttributeSet attrs) {
@@ -32,9 +32,9 @@ public class PreferenceSetting extends DialogPreference implements Preference.On
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
         int sec = numberPicker.getValue();
-        if (positiveResult){
+        if (positiveResult) {
             String inputValue = String.valueOf(sec);
-            if (callChangeListener(inputValue)){
+            if (callChangeListener(inputValue)) {
                 persistString(inputValue);
                 setSummary(inputValue + " Seconds");
             }
@@ -45,20 +45,20 @@ public class PreferenceSetting extends DialogPreference implements Preference.On
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         if (restorePersistedValue) {
             setSummary(retreiveSettings() + " Seconds");
-        }
-        else {
+        } else {
             persistString(defaultValue.toString());
         }
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        setSummary(newValue.toString()+ " Seconds");
+        setSummary(newValue.toString() + " Seconds");
         return true;
     }
 
     @Override
-    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {}
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+    }
 
     public void setTitle(CharSequence title) {
         super.setTitle(title);

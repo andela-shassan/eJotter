@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "915514916223",
+    "firebase_url": "https://ejotter-b8d1d.firebaseio.com",
+    "project_id": "ejotter-b8d1d",
+    "storage_bucket": "ejotter-b8d1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915514916223:android:b8b28062a96eacc1",
+        "android_client_info": {
+          "package_name": "com.checkpoint.andela.eJotter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915514916223-as04pf49gceggi576o5nmm2fkqijq8o1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYtZzx55f_LOsTF0O3GKOOfl5dKVeX1i8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
